@@ -1,5 +1,10 @@
 # ---- Base Node ----
 FROM node:19-alpine AS base
+ENV http_proxy=http://proxy.address:PORT
+ENV https_proxy=http://proxy.address:PORT
+ENV no_proxy=localhost,127.0.0.0/8,other.addresses
+ENV NODE_TLS_REJECT_UNAUTHORIZED=0
+
 WORKDIR /app
 COPY package*.json ./
 
@@ -30,4 +35,3 @@ EXPOSE 3000
 
 # Start the application after the API is ready
 CMD /wait && npm start
-

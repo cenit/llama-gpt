@@ -3,7 +3,12 @@ version: '3.6'
 services:
   chatgpt:
     build: .
+    volumes:
+      - '/etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt'
+      - '/etc/apt/apt.conf:/etc/apt/apt.conf'
     ports:
       - 3000:3000
     environment:
-      - 'OPENAI_API_KEY='
+      OPENAI_API_KEY:
+      HTTP_PROXY: http://proxy.address:PORT
+      HTTPS_PROXY: http://proxy.address:PORT

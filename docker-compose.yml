@@ -8,6 +8,8 @@ services:
     volumes:
       - './models:/models'
       - './api:/api'
+      - '/etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt'
+      - '/etc/apt/apt.conf:/etc/apt/apt.conf'
     ports:
       - 3001:8000
     environment:
@@ -15,6 +17,8 @@ services:
       MODEL_DOWNLOAD_URL: '${MODEL_DOWNLOAD_URL:-https://huggingface.co/TheBloke/Nous-Hermes-Llama-2-7B-GGML/resolve/main/nous-hermes-llama-2-7b.ggmlv3.q4_0.bin}'
       N_GQA: '${N_GQA:-1}'
       USE_MLOCK: 1
+      HTTP_PROXY: http://proxy.address:PORT
+      HTTPS_PROXY: http://proxy.address:PORT
     cap_add:
       - IPC_LOCK
     command: '/bin/sh /api/run.sh'
@@ -25,6 +29,8 @@ services:
     build:
       context: ./ui
       dockerfile: Dockerfile
+    volumes:
+      - '/etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt'
     ports:
       - 3000:3000
     restart: on-failure

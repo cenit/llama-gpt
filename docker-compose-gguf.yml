@@ -8,6 +8,8 @@ services:
     volumes:
       - './models:/models'
       - './api:/api'
+      - '/etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt'
+      - '/etc/apt/apt.conf:/etc/apt/apt.conf'
     ports:
       - 3001:8000
     environment:
@@ -25,6 +27,8 @@ services:
     build:
       context: ./ui
       dockerfile: Dockerfile
+    volumes:
+      - '/etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt'
     ports:
       - 3000:3000
     restart: on-failure

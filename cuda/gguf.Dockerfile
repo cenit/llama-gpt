@@ -1,5 +1,9 @@
 ARG CUDA_IMAGE="12.1.1-devel-ubuntu22.04"
 FROM nvidia/cuda:${CUDA_IMAGE}
+ENV http_proxy=http://proxy.address:PORT
+ENV https_proxy=http://proxy.address:PORT
+ENV no_proxy=localhost,127.0.0.0/8,other.addresses
+ENV NODE_TLS_REJECT_UNAUTHORIZED=0
 
 # We need to set the host to 0.0.0.0 to allow outside access
 ENV HOST 0.0.0.0
